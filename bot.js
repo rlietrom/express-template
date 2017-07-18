@@ -25,11 +25,11 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
   rtm.sendMessage("Hello000s000ooooo!", channel);
 });
 
-//curl 'https://api.api.ai/api/query?v=20150910&query=jlkj&lang=en&sessionId=05b18dc6-40c3-4e06-97dd-14e9e72d07cd&timezone=2017-07-17T16:55:52-0700' -H 'Authorization:Bearer ca43f35e1ad745a2af4fc67e46c65669'
-
+curl 'https://api.api.ai/api/query?v=20150910&query=ok&lang=en&sessionId=6101f183-7d9f-49ae-b1f0-7fcefd9098a3&timezone=2017-07-18T11:01:57-0700' -H 'Authorization:Bearer 3fc98031d77f4be59c6faa68dcc052c0'
 rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   var dm = rtm.dataStore.getDMByUserId(message.user)
   if(!dm || dm.id !== message.channel || message.type !== 'message') {
+    console.log('message not sent to DM, try again')
     return;
   }
   // rtm.sendMessage(message.text, message.channel)
@@ -37,7 +37,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     params: {
       v: 20150910,
       lang: 'en',
-      timezone: '2017-07-17T16:55:52-0700',
+      timezone: '2017-07-18T11:01:57-0700',
       query: message.text,
       sessionId: message.user,
     },
@@ -94,13 +94,3 @@ rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReactionRemoved(reaction) 
 });
 
 rtm.start();
-
-//WEB
-web.chat.postMessage('C1232456', 'Hello there', function(err, res) {
-  if (err) {
-    console.log('Error:', err);
-  } else {
-    console.log('Message sent: ', res);
-  }
-});
-// module.exports = rtm;
