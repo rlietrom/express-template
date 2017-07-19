@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.post('/messages', function(req, res) {
  res.send('received :fire:')
  var payload = JSON.parse(req.body.payload);  //lets us access the action they picked on the button
+ console.log('LOADDDDDD', payload);
  if(payload.actions[0].value === 'true') {
    res.send('Created reminder');
  } else {
@@ -92,8 +93,8 @@ app.get('/connect/callback', function(req, res){
                 }
                 else{
                     //MIGHT BE A PROBLEM: AUTH_ID, JSON.PARSE DECODE
-                    console.log('REQ QEURY SATAE', req.query.state)
-                    console.log("json", decodeURIComponent(req.query.state))
+                    //console.log('REQ QEURY SATAE', req.query.state)
+                    //console.log("json", decodeURIComponent(req.query.state))
                     User.findById(req.query.state)
                     .then(function(mongoUser){
                         mongoUser.google = tokens;

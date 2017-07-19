@@ -69,12 +69,12 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
           }
         })
         .then(function({ data }) {
-          console.log('DATA IS', {data})
+          //console.log('DATA IS', {data})
           if(data.result.actionIncomplete) {
             rtm.sendMessage(data.result.fulfillment.speech, message.channel);
             //should work w the API AI business
           } else {
-            console.log('ACTION IS COMPLETE', data.result.parameters)
+            console.log('ACTION IS COMPLETE', data.result.parameters.subject)
             web.chat.postMessage(message.channel, `Creating reminder for ${data.result.parameters.subject} on ${data.result.parameters.date}`, {
               "text": "Confirm this reminder???",
               "attachments": [
