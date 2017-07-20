@@ -33,6 +33,7 @@ const GOOGLE_SCOPES = [
 ];
 
 app.post('/messages', function(req, res) {
+    console.log('ddhgsjfghdhgfghjdgfdhfghggjfgjd')
   var payload = JSON.parse(req.body.payload);
   if(payload.actions[0].value === 'true') {
 
@@ -62,11 +63,13 @@ app.post('/messages', function(req, res) {
       },
       function(err, result) {
         if(err) {
+
           user.pending = {}
           console.log("/messages error: ", err)
           res.send("there was an error sending to google cal")
         }
         else {
+            console.log('result_________________',result)
           user.pending = {}
           user.save(function(err, save){
               if (err){
