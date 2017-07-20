@@ -84,8 +84,8 @@ app.post('/messages', function(req, res) {
                     )
                     res.send('Great! Added to Calendar');
                 }
-            }
-        })
+            });
+        });
     } else {
         res.send('Cancelled')
     }
