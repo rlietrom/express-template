@@ -126,7 +126,7 @@ app.get('/connect', function(req, res){
           scope: GOOGLE_SCOPES,
           state: userId
         })
-        console.log("URL IS", url)
+        console.log("URL IS", url);
         res.redirect(url);
       }
     });
