@@ -113,7 +113,7 @@ app.get('/connect', function(req, res){
     User.findById(userId)
     .then(function(user){
       if (! user){
-        res.status(404).send('cant find user')
+        res.status(404).send('cant pqodj;lasd;fafind user');
       }
       else {
         var googleAuth = getGoogleAuth();
