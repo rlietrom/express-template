@@ -17,12 +17,10 @@ var User = mongoose.model('User', {
 });
 
 var Reminder = mongoose.model('Reminder', {
-
     user: String,
     subject: String,
-    date: String,
-
-  }
+    date: String
+});
 
 module.exports = {
     User,

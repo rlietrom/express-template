@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var { User } = require('./models');
-var moment
+var { Reminder } = require('./models');
 
 mongoose.connection.on('connected', function() {
   console.log('yay, connected')
@@ -33,7 +33,6 @@ const GOOGLE_SCOPES = [
 ];
 
 app.post('/messages', function(req, res) {
-    console.log('ddhgsjfghdhgfghjdgfdhfghggjfgjd')
   var payload = JSON.parse(req.body.payload);
   if(payload.actions[0].value === 'true') {
 
@@ -59,14 +58,14 @@ app.post('/messages', function(req, res) {
             // date: moment(user.date).add(1, 'days').format('YYYY-MM-DD')
             timezone: 'America/Los_Angeles'
           }
-        }
-      },
-      var newReminder = new Reminder({
-          user: payload.user.id,
-          subject: user.pending.subject,
-          date: user.pending.date
-      }).save()
-      console.log(newReminder);
+      }
+  },
+    // var newReminder = new Reminder({
+    //     user: payload.user.id,
+    //     subject: user.pending.subject,
+    //     date: user.pending.date
+    // }).save()
+    // console.log(newReminder)
       function(err, result) {
         if(err) {
           user.pending = {};

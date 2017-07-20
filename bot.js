@@ -87,11 +87,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
               date: data.result.parameters.date
             }
 
-            
-
-            reminder
-
-            user.save()
+            user.save();
 
             web.chat.postMessage(message.channel, `Creating reminder for ${data.result.parameters.subject} on ${data.result.parameters.date}`, {
               "text": "Confirm this reminder???",
