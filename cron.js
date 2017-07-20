@@ -6,24 +6,21 @@ var bot_token = process.env.SLACK_BOT_TOKEN || '';
 var {User} = require('./models')
 var {web} = require ('./bot')
 var {Reminder} = require('./models')
-
-
-
-
 var rtm = new RtmClient(bot_token);
 
-rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
-  Reminder.find().populate("user")
-  .then(function(reminders) {
-    console.log('REMINDERS', reminders)
-    // reminders[0].user.slackId
-  })
+//FIND ALL REMINDERS THAT ARE DUE TODAY OR TOMORROW
 
-  rtm.sendMessage("sauce sequence initializing", channel);
-
-
-});
-
+// rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
+//   Reminder.find().populate("user")
+//   .then(function(reminders) {
+//     console.log('REMINDERS', reminders)
+//     // reminders[0].user.slackId
+//   })
+//
+//   rtm.sendMessage("sauce sequence initializing", channel);
+//
+//
+// });
 
 
 User.findOne()
