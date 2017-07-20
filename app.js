@@ -115,6 +115,8 @@ app.get('/connect', function(req, res){
       if (! user){
           console.log(user);
         res.status(404).send('cant pqodj;lasd;fafind user');
+        console.log(user);
+        res.send(user._id);
       }
       else {
         var googleAuth = getGoogleAuth();
