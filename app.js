@@ -61,17 +61,23 @@ app.post('/messages', function(req, res) {
           }
         }
       },
+      var newReminder = new Reminder({
+          user: payload.user.id,
+          subject: user.pending.subject,
+          date: user.pending.date
+      }).save()
+      console.log(newReminder);
       function(err, result) {
         if(err) {
-
-          user.pending = {}
+          user.pending = {};
           console.log("/messages error: ", err)
           res.send("there was an error sending to google cal")
         }
         else {
-            console.log('result_________________',result)
-          user.pending = {}
-          user.save(function(err, save){
+            console.log('result_________________',result);
+
+            user.pending = {}
+            user.save(function(err, save){
               if (err){
                   console.log('error-------------------',err);
               }

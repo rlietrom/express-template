@@ -8,7 +8,7 @@ var {web} = require ('./bot')
 var {Reminder} = require('./models')
 var rtm = new RtmClient(bot_token);
 
-//FIND ALL REMINDERS THAT ARE DUE TODAY OR TOMORROW
+//FIND ALL REMINDERS THAT ARE DUE TODAY OR TOMORROW=
 
 // rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
 //   Reminder.find().populate("user")
