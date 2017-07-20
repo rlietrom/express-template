@@ -59,7 +59,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         return;
         //replace this w heroku url
       }
-      else if {
+      else {
         axios.get('https://api.api.ai/api/query', { //makes an http request to this url (just like ajax)
           params: {
             v: 20150910,

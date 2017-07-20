@@ -36,7 +36,7 @@ app.post('/messages', function(req, res) {
   var payload = JSON.parse(req.body.payload);
   if(payload.actions[0].value === 'true') {
       //delete date
-    //  db.users.remove({pending: date});
+    // db.users.remove({pending: date});
     User.findOne({slackId: payload.user.id})
     .then(function(user) {
       var googleAuth = getGoogleAuth()
