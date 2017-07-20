@@ -35,8 +35,7 @@ const GOOGLE_SCOPES = [
 app.post('/messages', function(req, res) {
   var payload = JSON.parse(req.body.payload);
   if(payload.actions[0].value === 'true') {
-      //delete date
-    // db.users.remove({pending: date});
+
     User.findOne({slackId: payload.user.id})
     .then(function(user) {
       var googleAuth = getGoogleAuth()
@@ -71,10 +70,10 @@ app.post('/messages', function(req, res) {
           user.pending = {}
           user.save(function(err, save){
               if (err){
-                  console.log('error');
+                  console.log('error-------------------',err);
               }
               else{
-                  console.log('event cleared');
+                  console.log(save,'event cleared');
               }
           })
           res.send('Great! Added to Calendar');
