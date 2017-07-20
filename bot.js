@@ -46,11 +46,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     return user;
   })
   .then(function(user){ //user must confirm or cancel before scheduling another one.
-      console.log(user);
-    //   if(user.pending.date){
-    //       rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
-    //       return;
-    //   }
+
     if(!user.google || user.google.expiry_date < Date.now() ){
       rtm.sendMessage(`Hello,
         This is Schedule Bot.  In order to schedule reminders for you, I
@@ -58,6 +54,10 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         ${process.env.DOMAIN}connect?user=${user._id} to setup Google Calendar`, message.channel);
         return;
         //replace this w heroku url
+      }
+      if(user.pending.date){
+          rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
+          return;
       }
       else {
         axios.get('https://api.api.ai/api/query', { //makes an http request to this url (just like ajax)
