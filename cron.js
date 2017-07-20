@@ -13,7 +13,7 @@ var rtm = new RtmClient(bot_token);
 rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
     var today = moment().startOf('day')
     var tomorrow = moment(today).add(1, 'days')
-  Reminder.find({date: {$gt: today.toDate(), $lt: tomorrow.toDate()}})
+  Reminder.find({date: {$gte: today.toDate(), $lt: tomorrow.toDate()}})
   .then(function(reminders) {
     console.log('REMINDERS', reminders)
     // reminders[0].user.slackId
