@@ -4,7 +4,7 @@ var RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 var CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
 // var token = process.env.SLACK_API_TOKEN || ''; //see section above on sensitive data
 var bot_token = process.env.SLACK_BOT_TOKEN || '';
-console.log("BOT TOKEN", bot_token)
+console.log("BOT TOKEN", bot_token);
 var rtm = new RtmClient(bot_token); //initializing slack library, listeners
 var web = new WebClient(bot_token);
 var axios = require('axios')
@@ -51,7 +51,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
       rtm.sendMessage(`Hello,
         This is Schedule Bot.  In order to schedule reminders for you, I
         need access to your Google Calandar.
-        ${process.env.DOMAIN}/connect?user=${user._id} to setup Google Calendar`, message.channel);
+        ${process.env.DOMAIN}connect?user=${user._id} to setup Google Calendar`, message.channel);
         return;
         //replace this w heroku url
       }
@@ -74,7 +74,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
 
             //should work w the API AI business
           } else {
-            console.log('ACTION IS COMPLETE', data)
+            console.log('ACTION ISjjj COMPLETE', data)
 
             user.pending = {
               subject: data.result.parameters.subject,
@@ -123,7 +123,14 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     console.log('Reaction removed:', reaction);
   });
 
-  rtm.start();
 
-  module.exports = rtm;
-  module.exports = web;
+rtm.start();
+// var port = process.env.PORT || '3000';
+//   rtm.listen(port, function() {
+//       console.log('port is running!')
+//   })
+
+module.exports = {
+    rtm,
+    web
+}
