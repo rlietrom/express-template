@@ -10,17 +10,19 @@ var rtm = new RtmClient(bot_token);
 
 //FIND ALL REMINDERS THAT ARE DUE TODAY OR TOMORROW
 
-// rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
-//   Reminder.find().populate("user")
-//   .then(function(reminders) {
-//     console.log('REMINDERS', reminders)
-//     // reminders[0].user.slackId
-//   })
-//
-//   rtm.sendMessage("sauce sequence initializing", channel);
-//
-//
-// });
+rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
+    var today = moment().startOf('day')
+    var tomorrow = moment(today).add(1, 'days')
+  Reminder.find({date: {$gt: today.toDate(), $lt: tomorrow.toDate()}})
+  .then(function(reminders) {
+    console.log('REMINDERS', reminders)
+    // reminders[0].user.slackId
+  })
+
+  rtm.sendMessage("sauce sequence initializing", channel);
+
+
+});
 
 
 User.findOne()
