@@ -69,6 +69,14 @@ app.post('/messages', function(req, res) {
         }
         else {
           user.pending = {}
+          user.save(function(err, save){
+              if (err){
+                  console.log('error');
+              }
+              else{
+                  console.log('event cleared');
+              }
+          })
           res.send('Great! Added to Calendar');
           //NOW SAVE REMINDER TO MONGODB
         }
