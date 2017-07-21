@@ -62,6 +62,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
           return;
       }
       else {
+        console.log('GOT INTO ELSEEEEeeEEEEEEEEEE', user)
         axios.get('https://api.api.ai/api/query', { //makes an http request to this url (just like ajax)
           params: {
             v: 20150910,
