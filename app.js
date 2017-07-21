@@ -10,6 +10,7 @@ var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var { User } = require('./models');
 var { Reminder } = require('./models');
+var rtm = require('./bot')
 
 mongoose.connection.on('connected', function() {
     console.log('yay, connected')
@@ -157,7 +158,7 @@ app.get('/connect/callback', function(req, res){
                     })
                     .then(function(mongoUser){
                         res.send('youre connected to google cal!');
-                        rtm.sendMessage('you are connected to google calandar');
+                        //rtm.sendMessage('you are connected to google calandar');
                     })
                 }
             })
