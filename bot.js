@@ -131,7 +131,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                             console.log(e, 'errorr----------')
                         })
                         console.log('API Response--------', data.result);
-                    }
+                    })
                     else {
                         console.log('ACTION ISjjj COMPLETE', data)
 
