@@ -75,6 +75,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
           }
         })
         .then(function({ data }) {
+          console.log("DATA!!!", data)
           if(data.result.actionIncomplete) {
             rtm.sendMessage(data.result.fulfillment.speech, message.channel);
             // else if (data.result.metadata.intentName === 'meeting:add'){
