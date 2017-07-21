@@ -13,6 +13,8 @@ var {Reminder} = require('./models')
 var rtm = new RtmClient(bot_token);
 
 rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
+
+
   Reminder.find().populate("user")
   .then(function(reminders) {
     console.log('REMINDERS', reminders)
@@ -21,8 +23,12 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
 
   rtm.sendMessage("sauce sequence initializing", channel);
 
-
 });
+// 
+// User.findOne()
+// .then(function(user) {
+//   if(user.pending.date )
+// })
 
 
 
