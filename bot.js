@@ -29,7 +29,6 @@ rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
 
 rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   var dm = rtm.dataStore.getDMByUserId(message.user)
-  console.log("a")
   if(!dm || dm.id !== message.channel || message.type !== 'message') {
     return;
   }
@@ -46,7 +45,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     }
     return user;
   })
-  .then(function(user){
+  .then(function(user){ //user must confirm or cancel before scheduling another one.
+
     if(!user.google || user.google.expiry_date < Date.now() ){
       rtm.sendMessage(`Hello,
         This is Schedule Bot.  In order to schedule reminders for you, I
@@ -54,6 +54,12 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         ${process.env.DOMAIN}connect?user=${user._id} to setup Google Calendar`, message.channel);
         return;
         //replace this w heroku url
+      }
+
+      if(user.pending.date){
+          console.log(user.pending.date);
+          rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
+          return;
       }
       else {
         axios.get('https://api.api.ai/api/query', { //makes an http request to this url (just like ajax)
@@ -71,9 +77,13 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         .then(function({ data }) {
           if(data.result.actionIncomplete) {
             rtm.sendMessage(data.result.fulfillment.speech, message.channel);
-
-            //should work w the API AI business
-          } else {
+            // else if (data.result.metadata.intentName === 'meeting:add'){
+            //     rtm.sendMessage('Looks like you are trying to schedule a meeting!', message.channel);
+            //     user.pending.description = "meeting with xxxxxxx";
+            //     user.pending.when = data.result.parameters.when;
+            //     console.log()
+            }
+           else {
             console.log('ACTION ISjjj COMPLETE', data)
 
             user.pending = {
@@ -81,7 +91,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
               date: data.result.parameters.date
             }
 
-            user.save()
+            user.save();
 
             web.chat.postMessage(message.channel, `Creating reminder for ${data.result.parameters.subject} on ${data.result.parameters.date}`, {
               "text": "Confirm this reminder???",

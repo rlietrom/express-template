@@ -17,12 +17,10 @@ var User = mongoose.model('User', {
 });
 
 var Reminder = mongoose.model('Reminder', {
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User'
-  },
-  date: Date
-})
+    user: String,
+    subject: String,
+    date: String
+});
 
 module.exports = {
     User,
