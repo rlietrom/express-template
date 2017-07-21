@@ -47,6 +47,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
         .then(function(user){ //user must confirm or cancel before scheduling another one.
 
             if(!user.google || user.google.expiry_date < Date.now() ){
+                console.log("MY PROCESS ENV", process.env);
                 rtm.sendMessage(`Hello,
                     This is Schedule Bot.  In order to schedule reminders for you, I
                     need access to your Google Calandar.
