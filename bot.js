@@ -97,7 +97,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                             users : users,
                             active : true
                         }
-                    }
+
                         user.save()
                         .then(function(u){
                             web.chat.postMessage(message.channel, `Scheduling a meeting with ${data.result.parameters.who} on ${data.result.parameters.date}`, {
@@ -127,11 +127,10 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                                 ]
                             })
                         })
-                        .catch(function(e){
-                            console.log(e, 'errorr----------')
-                        })
-                        console.log('API Response--------', data.result);
-                    })
+                    }
+
+                    console.log('API Response--------', data.result);
+
                     else {
                         console.log('ACTION ISjjj COMPLETE', data)
 
@@ -169,27 +168,32 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                             ]
                         })
                     }
-                });
+
+                })
+                .catch(function(e){
+                    console.log(e, 'errorr----------')
+                })
             });
         });
     });
+});
 
-    rtm.on(RTM_EVENTS.REACTION_ADDED, function handleRtmReactionAdded(reaction) {
-        console.log('Reaction added:', reaction);
-    });
+rtm.on(RTM_EVENTS.REACTION_ADDED, function handleRtmReactionAdded(reaction) {
+    console.log('Reaction added:', reaction);
+});
 
-    rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReactionRemoved(reaction) {
-        console.log('Reaction removed:', reaction);
-    });
+rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReactionRemoved(reaction) {
+    console.log('Reaction removed:', reaction);
+});
 
 
-    rtm.start();
-    // var port = process.env.PORT || '3000';
-    //   rtm.listen(port, function() {
-    //       console.log('port is running!')
-    //   })
+rtm.start();
+// var port = process.env.PORT || '3000';
+//   rtm.listen(port, function() {
+//       console.log('port is running!')
+//   })
 
-    module.exports = {
-        rtm,
-        web
-    }
+module.exports = {
+    rtm,
+    web
+}
