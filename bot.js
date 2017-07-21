@@ -56,8 +56,13 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         //replace this w heroku url
       }
 
-      if(user.pending.date){
-          console.log("USER PENDING DATE", user.pending.date);
+      // if(user.pending.date){
+      //     console.log("USER PENDING DATE");
+      //     rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
+      //     return;
+      // }
+      if(user.pending !== {}){
+          console.log("USER PENDING");
           rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
           return;
       }
