@@ -92,10 +92,10 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
             }
             else if (data.result.metadata.intentName === 'meeting:add'){
                 user.pending={
-                    description = `meeting with ${data.result.parameters.who}`,
-                    when = data.result.parameters.when,
-                    users = users,
-                    active = true
+                    description : `meeting with ${data.result.parameters.who}`,
+                    when :  data.result.parameters.when,
+                    users : users,
+                    active : true
                 }
                 user.save();
                     .then(function(u){
