@@ -61,8 +61,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
       //     rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
       //     return;
       // }
-      if(user.pending !== {}){
-          console.log("USER PENDING");
+      if(user.pending && user.pending.date){
+        console.log("USER PENDING AND DATE")
           rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
           return;
       }
