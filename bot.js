@@ -54,7 +54,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                 //     ${process.env.DOMAIN}connect?user=${user._id} to setup Google Calendar`, message.channel);
                 //     return;
                 //     //replace this w heroku url
-                // }
+                }
 
                 // if(user.pending.active && user.pending){
                 //     //   console.log(user.pending.date);
