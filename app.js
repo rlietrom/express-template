@@ -37,10 +37,11 @@ const GOOGLE_SCOPES = [
 
 var bluebird = require('bluebird');
 const calendar = google.calendar('v3');
-const eventInsert =
 
 app.post('/messages', function(req, res) {
     var payload = JSON.parse(req.body.payload);
+    console.log('Slackplayload ---------', payload);
+    res.send('OK')
     if(payload.actions[0].value === 'true') {
         User.findOne({slackId: payload.user.id})
         .then(function(user) {
