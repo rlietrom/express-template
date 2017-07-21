@@ -157,7 +157,7 @@ app.get('/connect/callback', function(req, res){
                     })
                     .then(function(mongoUser){
                         res.send('youre connected to google cal!');
-                        rtm.sendMessage('you are connected to google calandar');
+                        //rtm.sendMessage('you are connected to google calandar');
                     })
                 }
             })
