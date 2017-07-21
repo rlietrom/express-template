@@ -126,7 +126,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
   })
 
   rtm.on(RTM_EVENTS.REACTION_ADDED, function handleRtmReactionAdded(reaction) {
-    console.log('Reaction added:', reaction);
+    console.log('Reaction added:', reaction)
   });
 
   rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReactionRemoved(reaction) {
