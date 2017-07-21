@@ -17,18 +17,20 @@ var d = new Date();
 
 Reminder.find({date: d.toISOString().substring(0, 10)}) // 2017-07-20
   .then(function(reminders) { // return array of reminders
+      var count = reminders.length;
+
     console.log('LIST OF REMINDERS', reminders)
     reminders.forEach(function(reminder) {
       User.findOne({slackId: reminder.user})
         .then(function(user) {
-          web.chat.postMessage(user.slackDMId,
+
+          web.chat.postMessage(user.slackDmId,
             `:bell: You have the following reminder upcoming on ${Date(reminder.date).slice(0, 15)}: ${reminder.subject}.`
           )
+          count--;
+          if (count === 0) {process.exit(0)}
         })
-    }),
-    function() {
-      process.exit(0);
-    }
+    })
   })
 
 // var today = moment().startOf('day')

@@ -83,7 +83,6 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
             //     user.pending.when = data.result.parameters.when;
             //     console.log()
             }
-          //}
            else {
             console.log('ACTION ISjjj COMPLETE', data)
 
