@@ -97,7 +97,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
                     users : users,
                     active : true
                 }
-                user.save();
+                user.save()
                     .then(function(u){
                         web.chat.postMessage(message.channel, `Scheduling a meeting with ${data.result.parameters.who} on ${data.result.parameters.date}`, {
                           "text": "Confirm this reminder???",
