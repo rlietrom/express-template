@@ -48,19 +48,19 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
 
             if(!user.google || user.google.expiry_date < Date.now() ){
                 console.log("MY PROCESS ENV", process.env);
-                rtm.sendMessage(`Hello,
-                    This is Schedule Bot.  In order to schedule reminders for you, I
-                    need access to your Google Calandar.
-                    ${process.env.DOMAIN}connect?user=${user._id} to setup Google Calendar`, message.channel);
-                    return;
-                    //replace this w heroku url
-                }
+                // rtm.sendMessage(`Hello,
+                //     This is Schedule Bot.  In order to schedule reminders for you, I
+                //     need access to your Google Calandar.
+                //     ${process.env.DOMAIN}connect?user=${user._id} to setup Google Calendar`, message.channel);
+                //     return;
+                //     //replace this w heroku url
+                // }
 
-                if(user.pending.active && user.pending){
-                    //   console.log(user.pending.date);
-                    rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
-                    return;
-                }
+                // if(user.pending.active && user.pending){
+                //     //   console.log(user.pending.date);
+                //     rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
+                //     return;
+                // }
                 var regex = /<@\w+>/g;
                 var users = [];
                 msg.text = msg.text.replace(regex, function(match){
