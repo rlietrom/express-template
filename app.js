@@ -73,21 +73,14 @@ app.post('/messages', function(req, res) {
                     }).save()
                     console.log("new reminder", newReminder)
                     user.pending = {}
-                    user.save(
-                        //         function(err, save){
-                        //       if (err){
-                        //           console.log('error-------------------',err);
-                        //       }
-                        //       else{
-                        //           console.log(save,'event cleared');
-                        //       }
-                        //   }
-                    )
+                    user.save()
                     res.send('Great! Added to Calendar');
                 }
             });
         });
     } else {
+        user.pending = {}
+        user.save()
         res.send('Cancelled')
     }
 })
