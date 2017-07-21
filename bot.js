@@ -56,11 +56,24 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         //replace this w heroku url
       }
 
-      if(user.pending.date){
-          console.log(user.pending.date);
+      if(user.pending.active && user.pending){
+        //   console.log(user.pending.date);
           rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
           return;
       }
+      var regex = /<@\w+>/g;
+      var users = [];
+      msg.text = msg.text.replace(regex, function(match){
+          var userId = match.slice(2, -1);
+          var user = rtm.dataStore.getUserById(userId);
+          users.push({
+              displayName: user.profile.real_name,
+              email: user.profile.email
+          });
+          console.log('Slack users', userId, user);
+          return user.profile.first_name || user.profile.real_name;
+      })
+
       else {
         axios.get('https://api.api.ai/api/query', { //makes an http request to this url (just like ajax)
           params: {
@@ -77,11 +90,47 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         .then(function({ data }) {
           if(data.result.actionIncomplete) {
             rtm.sendMessage(data.result.fulfillment.speech, message.channel);
-            // else if (data.result.metadata.intentName === 'meeting:add'){
-            //     rtm.sendMessage('Looks like you are trying to schedule a meeting!', message.channel);
-            //     user.pending.description = "meeting with xxxxxxx";
-            //     user.pending.when = data.result.parameters.when;
-            //     console.log()
+            }
+            else if (data.result.metadata.intentName === 'meeting:add'){
+                user.pending={
+                    description = `meeting with ${data.result.parameters.who}`;
+                    when = data.result.parameters.when;
+                    users = users;
+                    active = true;
+                }
+                user.save();
+                    .then(function(u){
+                        web.chat.postMessage(message.channel, `Scheduling a meeting with ${data.result.parameters.who} on ${data.result.parameters.date}`, {
+                          "text": "Confirm this reminder???",
+                          "attachments": [
+                            {
+                              "text": "Confirm this reminder?",
+                              "fallback": "You are unable to confirm",
+                              "callback_id": "meeting",
+                              "color": "#3AA3E3",
+                              "attachment_type": "default",
+                              "actions": [
+                                {
+                                  "name": "confirm",
+                                  "text": "confirm",
+                                  "type": "button",
+                                  "value": "true"
+                                },
+                                {
+                                  "name": "cancel",
+                                  "text": "cancel",
+                                  "type": "button",
+                                  "value": "false"
+                                }
+                              ]
+                            }
+                          ]
+                        })
+                    })
+                    .catch(function(e){
+                        console.log(e, 'errorr----------')
+                    })
+                console.log('API Response--------', data.result);
             }
            else {
             console.log('ACTION ISjjj COMPLETE', data)
@@ -99,7 +148,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
                 {
                   "text": "Confirm this reminder?",
                   "fallback": "You are unable to confirm",
-                  "callback_id": "wopr_game",
+                  "callback_id": "reminder",
                   "color": "#3AA3E3",
                   "attachment_type": "default",
                   "actions": [
