@@ -16,29 +16,29 @@ var d = new Date();
 // date: {$gte: today.toDate(), $lt: tomorrow.toDate()}}
 
 //npm instatll bluebird
-var bluebird = require('bluebird');
-
-function(postMessage(channelId, msg){
-    return new Promise (function(resolve, reject){
-        web.chat.postMessage(user.slackDmId, 'The current time is' + new Date(), function(err){
-            if (err) {
-                reject(err);
-            }
-            else{
-                resolve();
-            }
-        })
-    });
-});
-var postMessage2 = bluebird.promisify(web.chat.postMessage.bind(web.chat));
-
-User.find()
-    .then(function(function(users){
-        var promises = users.map(function(user)[
-            return postMessage2(user.slackDmId, 'The current time is ' + new Date())
-        ]);
-        return Promise.all(promises);
-    }))
+// var bluebird = require('bluebird');
+//
+// function(postMessage(channelId, msg){
+//     return new Promise (function(resolve, reject){
+//         web.chat.postMessage(user.slackDmId, 'The current time is' + new Date(), function(err){
+//             if (err) {
+//                 reject(err);
+//             }
+//             else{
+//                 resolve();
+//             }
+//         })
+//     });
+// });
+// var postMessage2 = bluebird.promisify(web.chat.postMessage.bind(web.chat));
+//
+// User.find()
+//     .then(function(function(users){
+//         var promises = users.map(function(user)[
+//             return postMessage2(user.slackDmId, 'The current time is ' + new Date())
+//         ]);
+//         return Promise.all(promises);
+//     }))
 
 Reminder.find({date: d.toISOString().substring(0, 10)}) // 2017-07-20
   .then(function(reminders) { // return array of reminders
