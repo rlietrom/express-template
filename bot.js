@@ -72,9 +72,8 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
           });
           console.log('Slack users', userId, user);
           return user.profile.first_name || user.profile.real_name;
-      })
+      });
 
-      else {
         axios.get('https://api.api.ai/api/query', { //makes an http request to this url (just like ajax)
           params: {
             v: 20150910,
