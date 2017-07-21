@@ -170,24 +170,24 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                 });
             });
         });
-    });
-
-    rtm.on(RTM_EVENTS.REACTION_ADDED, function handleRtmReactionAdded(reaction) {
-        console.log('Reaction added:', reaction);
-    });
-
-    rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReactionRemoved(reaction) {
-        console.log('Reaction removed:', reaction);
-    });
 
 
-    rtm.start();
-    // var port = process.env.PORT || '3000';
-    //   rtm.listen(port, function() {
-    //       console.log('port is running!')
-    //   })
+        rtm.on(RTM_EVENTS.REACTION_ADDED, function handleRtmReactionAdded(reaction) {
+            console.log('Reaction added:', reaction);
+        });
 
-    module.exports = {
-        rtm,
-        web
-    }
+        rtm.on(RTM_EVENTS.REACTION_REMOVED, function handleRtmReactionRemoved(reaction) {
+            console.log('Reaction removed:', reaction);
+        });
+
+
+        rtm.start();
+        // var port = process.env.PORT || '3000';
+        //   rtm.listen(port, function() {
+        //       console.log('port is running!')
+        //   })
+
+        module.exports = {
+            rtm,
+            web
+        }
