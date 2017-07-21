@@ -77,8 +77,12 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         .then(function({ data }) {
           if(data.result.actionIncomplete) {
             rtm.sendMessage(data.result.fulfillment.speech, message.channel);
-
-            //should work w the API AI business
+            // else if (data.result.metadata.intentName === 'meeting:add'){
+            //     rtm.sendMessage('Looks like you are trying to schedule a meeting!', message.channel);
+            //     user.pending.description = "meeting with xxxxxxx";
+            //     user.pending.when = data.result.parameters.when;
+            //     console.log()
+            }
           } else {
             console.log('ACTION ISjjj COMPLETE', data)
 
