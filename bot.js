@@ -46,7 +46,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
     return user;
   })
   .then(function(user){ //user must confirm or cancel before scheduling another one.
-
+    console.log('USER1!!!!', user)
     if(!user.google || user.google.expiry_date < Date.now() ){
       rtm.sendMessage(`Hello,
         This is Schedule Bot.  In order to schedule reminders for you, I
@@ -57,7 +57,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
       }
 
       if(user.pending.date){
-          console.log(user.pending.date);
+          console.log("USER PENDING DATE", user.pending.date);
           rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
           return;
       }
