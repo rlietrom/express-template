@@ -104,7 +104,7 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message) {
                           "text": "Confirm this reminder???",
                           "attachments": [
                             {
-                              "text": "Confirm this reminder?",
+                              "text": "Confirm this Meeting?",
                               "fallback": "You are unable to confirm",
                               "callback_id": "meeting",
                               "color": "#3AA3E3",
