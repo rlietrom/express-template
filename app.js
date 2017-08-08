@@ -27,13 +27,21 @@ function getGoogleAuth(){
     )
 }
 
+
+
 const GOOGLE_SCOPES = [
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/calendar'
 ];
 
+
+var bluebird = require('bluebird');
+const calendar = google.calendar('v3');
+
 app.post('/messages', function(req, res) {
     var payload = JSON.parse(req.body.payload);
+    console.log('Slackplayload ---------', payload);
+    res.send('OK')
     if(payload.actions[0].value === 'true') {
         User.findOne({slackId: payload.user.id})
         .then(function(user) {
@@ -42,7 +50,7 @@ app.post('/messages', function(req, res) {
             delete credentials.profile_id;
             delete credentials.profile_name;
             googleAuth.setCredentials(user.google)
-            var calendar = google.calendar('v3')
+
             calendar.events.insert({
                 auth: googleAuth,
                 calendarId: 'primary',
@@ -72,16 +80,7 @@ app.post('/messages', function(req, res) {
                     }).save()
                     console.log("new reminder", newReminder)
                     user.pending = {}
-                    user.save(
-                        //         function(err, save){
-                        //       if (err){
-                        //           console.log('error-------------------',err);
-                        //       }
-                        //       else{
-                        //           console.log(save,'event cleared');
-                        //       }
-                        //   }
-                    )
+                    user.save();
                     res.send('Great! Added to Calendar');
                 }
             });
