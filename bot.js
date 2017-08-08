@@ -2,7 +2,6 @@ var RtmClient = require('@slack/client').RtmClient;
 var WebClient = require('@slack/client').WebClient;
 var RTM_EVENTS = require('@slack/client').RTM_EVENTS;
 var CLIENT_EVENTS = require('@slack/client').CLIENT_EVENTS;
-// var token = process.env.SLACK_API_TOKEN || ''; //see section above on sensitive data
 var bot_token = process.env.SLACK_BOT_TOKEN || '';
 console.log("BOT TOKEN", bot_token);
 var rtm = new RtmClient(bot_token); //initializing slack library, listeners
@@ -16,16 +15,9 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
     for (const c of rtmStartData.channels) {
         if (c.is_member && c.name ==='general') { channel = c.id }
     }
-
-    console.log(`Logged in as ${rtmStartData.self.name}
-        of team ${rtmStartData.team.name}, but not yet connected to a channel`);
-    });
-
     rtm.on(CLIENT_EVENTS.RTM.RTM_CONNECTION_OPENED, function () {
         rtm.sendMessage("Hello000s000ooooo!", channel);
     });
-
-    //curl 'https://api.api.ai/api/query?v=20150910&query=jlkj&lang=en&sessionId=05b18dc6-40c3-4e06-97dd-14e9e72d07cd&timezone=2017-07-17T16:55:52-0700' -H 'Authorization:Bearer ca43f35e1ad745a2af4fc67e46c65669'
 
     rtm.on(RTM_EVENTS.MESSAGE, function(message) {
         var dm = rtm.dataStore.getDMByUserId(message.user)
@@ -45,22 +37,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
             return user;
         })
         .then(function(user){ //user must confirm or cancel before scheduling another one.
-
             if(!user.google || user.google.expiry_date < Date.now() ){
-                console.log("MY PROCESS ENV", process.env);
-                // rtm.sendMessage(`Hello,
-                //     This is Schedule Bot.  In order to schedule reminders for you, I
-                //     need access to your Google Calandar.
-                //     ${process.env.DOMAIN}connect?user=${user._id} to setup Google Calendar`, message.channel);
-                //     return;
-                //     //replace this w heroku url
-                // }
-
-                // if(user.pending.active && user.pending){
-                //     //   console.log(user.pending.date);
-                //     rtm.sendMessage('Please confirm or cancel previous request before scheduling another', message.channel);
-                //     return;
-                // }
                 var regex = /<@\w+>/g;
                 var users = [];
                 msg.text = msg.text.replace(regex, function(match){
@@ -129,11 +106,8 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                         .catch(function(e){
                             console.log(e, 'errorr----------')
                         })
-
                     }
                     else {
-                        console.log('ACTION ISjjj COMPLETE', data)
-
                         user.pending = {
                             subject: data.result.parameters.subject,
                             date: data.result.parameters.date
@@ -183,10 +157,6 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
 
 
         rtm.start();
-        // var port = process.env.PORT || '3000';
-        //   rtm.listen(port, function() {
-        //       console.log('port is running!')
-        //   })
 
         module.exports = {
             rtm,
