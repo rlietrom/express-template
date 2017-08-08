@@ -60,18 +60,26 @@ app.post('/messages', function(req, res) {
         }
       },
       function(err, result) {
-        if(err) {
-          user.pending = {}
-          console.log("/messages error: ", err)
-          res.send("there was an error sending to google cal")
-        }
-        else {
-          user.pending = {}
-          res.send('Great! Added to Calendar')
-        }
-      })
-    })
-  } else {
+            console.log('something', err, result)
+                if(err) {
+                    user.pending = {};
+                    console.log("/messages error: ", err)
+                    res.send("there was an error sending to google cal")
+                }
+                else {
+                    var newReminder = new Reminder({
+                        user: payload.user.id,
+                        subject: user.pending.subject,
+                        date: user.pending.date
+                    }).save()
+                    console.log("new reminder", newReminder)
+                    user.pending = {}
+                    user.save()
+                    res.send('Great! Added to Calendar');
+                }
+            });
+        });
+    } else {
     res.send('Cancelled')
   }
 })
