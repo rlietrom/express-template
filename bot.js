@@ -37,7 +37,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
             return user;
         })
         .then(function(user){ //user must confirm or cancel before scheduling another one.
-            if(!user.google || user.google.expiry_date < Date.now() ){
+            if(!user.google || user.google.expiry_date < Date.now()){
                 var regex = /<@\w+>/g;
                 var users = [];
                 msg.text = msg.text.replace(regex, function(match){
@@ -63,6 +63,7 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
                         Authorization: `Bearer ${process.env.API_AI_TOKEN}`
                     }
                 })
+            }})
                 .then(function({ data }) {
                     if(data.result.actionIncomplete) {
                         rtm.sendMessage(data.result.fulfillment.speech, message.channel);
