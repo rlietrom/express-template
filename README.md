@@ -1,22 +1,39 @@
-# Horizons Hackathon Template.
+# Calbot
+A language-aware intelligent Slack bot for scheduling reminders and meetings with other Slack users in Google Calendar.
 
-## Steps 1: Get your project set-up
-You have two ways of working on your project: Local and Gomix.
+## APIs Used
+* Google, Slack, API.AI, MongoDB.
+* Managed OAuth flow from Slack and storing credentials in MongoDB.
+* We trained API.AI to handle multiple intents for meetings and reminders.
 
-### Local development
-1. Clone the repo.
-1. Create a `env.sh` file that contains:
+## Interesting Parts About Building This
+### Working on a Team
+* There were many merge conflicts as it was our first time building something in Git with a team.
+* It was hard knowing which API accounts to share and which to have separately while in the testing phases “configuring environments".
+* It was hard not understanding all of the code that team members wrote.
+* Trello was great for organization.
+* Many laughs were made. Shoutout to Jilani and Reed for being awesome mates.
+### Managing State
+* user.pending: {} not showing up in MongoDB until it's filled once 
+* user.action
+* interesting fact: API.AI was capable of handling pending conversation state (could remember subject and date)
+### Asynchronous Code
+* The bugs it causes are hard to catch.
+* “Race conditions”: if A comes before B but it’s not supposed to! 
+* Often had to convert synchronous code to asynchronous (refracting).
+* Integrated logic across many asynchronous APIs: Google Cal API and Slack Web API.
+* Used promises: promise.all(), promisifying.
+### Other Fun Learning Moments
+* Deployed to Heroku and used Heroku Scheduler to time reminders
+* Source Control
+* Hella helper functions
 
-    ```
-    export MONGODB_URI='YOUR URI';
-    export SECRET='YOUR SECRET'
-    ```
 
-1. Run `source .env`, and you are good to go!
 
-### Glitch Development
 
-1. Go to https://glitch.com/edit/#!/horizons-hackathon and click
-  `Remix this 🎤`
-1. Select `.env` on the left panel, add your `MONGODB_URI` and `SECRET`
-1. Click `Show` at the top to preview your app!
+
+
+
+
+
+
